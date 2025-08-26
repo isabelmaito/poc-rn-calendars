@@ -11,11 +11,11 @@ import {
 } from "react-native";
 
 const UI = {
-  bg: "#DCE6F1",
-  orange: "#F57C00",
-  blue: "#0B61A4",
-  beige: "#EED8C7",
-  dark: "#1A1A1A",
+  bg: "#DDE6F0",
+  orange: "#FC8200",
+  blue: "#005A93",
+  bege: "#E0E0E0",
+  dark: "#000000",
   white: "#FFFFFF",
   chip: "#E8F0FB",
   divider: "#B8C3CF",
@@ -147,7 +147,7 @@ export default function ResultsScreen({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Text style={styles.brand}>delBicos</Text>
+        <Text style={styles.brand}>DelBicos</Text>
       </View>
 
       <Text style={styles.headerLine}>
@@ -167,7 +167,7 @@ export default function ResultsScreen({ route }) {
         contentContainerStyle={{ paddingBottom: 24 }}
       />
 
-      <Text style={styles.footer}>© DelBicos · 2024 · Todos os direitos reservados.</Text>
+      <Text style={styles.footer}>© DelBicos · 2025 · Todos os direitos reservados.</Text>
     </View>
   );
 }
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   hoursLabel: { fontSize: 12, color: UI.dark, marginBottom: 6 },
   hoursRow: { flexDirection: "row", flexWrap: "wrap" },
   hourBtn: {
-    backgroundColor: UI.beige,
+    backgroundColor: UI.bege,
     borderRadius: 8,
     paddingVertical: 6,
     paddingHorizontal: 8,

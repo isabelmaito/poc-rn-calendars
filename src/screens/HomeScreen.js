@@ -11,12 +11,13 @@ import {
 import { Calendar } from "react-native-calendars";
 
 const UI = {
-  bg: "#DCE6F1",
-  orange: "#F57C00",
-  blue: "#0B61A4",
-  beige: "#EED8C7",
-  dark: "#1A1A1A",
+   bg: "#DDE6F0",
+  orange: "#FC8200",
+  blue: "#005A93",
+  bege: "#E0E0E0",
+  dark: "#000000",
   white: "#FFFFFF",
+  chip: "#E8F0FB",
   divider: "#B8C3CF",
 };
 
@@ -53,7 +54,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 28 }}>
       <View style={styles.topBar}>
-        <Text style={styles.brand}>delBicos</Text>
+        <Text style={styles.brand}>DelBicos</Text>
       </View>
 
       <View style={styles.sectionHeaderRow}>
@@ -114,7 +115,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
 
-      <Text style={styles.footer}>© DelBicos · 2024 · Todos os direitos reservados.</Text>
+      <Text style={styles.footer}>© DelBicos · 2025 · Todos os direitos reservados.</Text>
     </ScrollView>
   );
 }
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   rightCol: { flex: 1 },
   grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" },
   catBtn: {
-    backgroundColor: UI.beige,
+    backgroundColor: UI.bege,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 14,
