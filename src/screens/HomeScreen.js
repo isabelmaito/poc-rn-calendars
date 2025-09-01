@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "transparent",
   },
-  catBtnActive: { borderColor: UI.orange, backgroundColor: "#F3E7DC" },
+  catBtnActive: { borderColor: UI.blue, backgroundColor: "#005A93" },
   catText: { color: UI.orange, fontWeight: "700" },
   catTextActive: { color: UI.dark },
   divider: { width: 1.5, backgroundColor: UI.divider, marginHorizontal: 8 },
