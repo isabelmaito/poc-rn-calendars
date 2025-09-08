@@ -64,7 +64,7 @@ export default function HomeScreen({ navigation }) {
 
       <View style={[styles.row, { flexDirection: isWide ? "row" : "column" }]}>
         {/* ESQUERDA: Categorias */}
-        <View style={[styles.leftCol, { marginRight: isWide ? 16 : 0 }]}>
+        <View style={[styles.leftCol]}>
           <View style={styles.grid}>
             {CATEGORIES.map((label) => {
               const active = selectedCategory === label;
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   brand: { fontSize: 22, fontWeight: "800", color: UI.blue },
   sectionHeaderRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "flex-end",
     marginTop: 6,
     marginBottom: 8,
@@ -136,24 +136,24 @@ const styles = StyleSheet.create({
   row: { alignItems: "stretch", justifyContent: "center" },
   leftCol: { flex: 1 },
   rightCol: { flex: 1 },
-  grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" },
+  grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" },
   catBtn: {
     backgroundColor: UI.bege,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 14,
     margin: 6,
-    minWidth: "42%",
+    minWidth: "29%",
+    maxWidth: "42%",
     alignItems: "center",
     borderWidth: 2,
     borderColor: "transparent",
   },
-  catBtnActive: { borderColor: UI.blue, backgroundColor: "#005A93" },
+  catBtnActive: { backgroundColor: "#005A93" },
   catText: { color: UI.orange, fontWeight: "700" },
-  catTextActive: { color: UI.dark },
-  divider: { width: 1.5, backgroundColor: UI.divider, marginHorizontal: 8 },
+  catTextActive: { color: UI.white },
+  divider: { width: 2, backgroundColor: UI.divider, marginHorizontal: 50 },
   calendarCard: {
-    borderRadius: 12,
     overflow: "hidden",
     backgroundColor: UI.orange,
     elevation: 2,
