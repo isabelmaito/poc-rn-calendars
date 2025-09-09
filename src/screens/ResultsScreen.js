@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Alert,
   Image,
   useWindowDimensions,
 } from "react-native";
@@ -72,7 +71,6 @@ const MOCK = {
       distance: "7 km",
     },
   ],
-  // adicione arrays para outras categorias quando quiser
 };
 
 function formatDate(dateStr) {
@@ -81,21 +79,55 @@ function formatDate(dateStr) {
   return `${d}/${m}/${y}`;
 }
 
+const ConfirmationModal = ({ visible, onClose, onConfirm, info }) => {
+  if (!visible) return null;
+
+  return (
+    <View style={modalStyles.overlay}>
+      <View style={modalStyles.container}>
+        <Text style={modalStyles.title}>Confirmação</Text>
+        <Text style={modalStyles.message}>
+          Foi marcado o {info.category} ({info.professionalName}) para o dia {formatDate(info.date)} às {info.hour}. Agradecemos pela preferência, DelBicos.
+        </Text>
+        <View style={modalStyles.buttonRow}>
+          <TouchableOpacity style={modalStyles.buttonCancel} onPress={onClose}>
+            <Text style={modalStyles.buttonText}>Cancelar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={modalStyles.buttonConfirm} onPress={onConfirm}>
+            <Text style={modalStyles.buttonText}>Confirmar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+};
+
 export default function ResultsScreen({ route }) {
   const { category, date } = route.params;
   const { width } = useWindowDimensions();
   const isWide = width >= 900;
   const columns = isWide ? 2 : 1;
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
+
   const professionals = MOCK[category] ?? [];
 
-  function confirm(prof, hour) {
-    Alert.alert(
-      "Confirmação",
-      `Foi marcado o ${category} (${prof.name}) para o dia ${formatDate(
-        date
-      )} às ${hour}. Agradecemos pela preferência, DelBicos.`
-    );
+  function handleConfirm(prof, hour) {
+    setModalInfo({
+      category: category,
+      professionalName: prof.name,
+      date: date,
+      hour: hour,
+    });
+    setShowModal(true);
+  }
+
+  function handleFinalConfirmation() {
+    // Aqui você adiciona a lógica para finalizar o agendamento
+    // Por exemplo, enviar os dados para um servidor
+    setShowModal(false);
+    alert("Seu agendamento foi confirmado!");
   }
 
   const Card = ({ item }) => (
@@ -111,7 +143,7 @@ export default function ResultsScreen({ route }) {
         <Text style={styles.hoursLabel}>Horários disponíveis:</Text>
         <View style={styles.hoursRow}>
           {item.availableHours.map((h) => (
-            <TouchableOpacity key={h} style={styles.hourBtn} onPress={() => confirm(item, h)}>
+            <TouchableOpacity key={h} style={styles.hourBtn} onPress={() => handleConfirm(item, h)}>
               <Text style={styles.hourText}>{h}</Text>
             </TouchableOpacity>
           ))}
@@ -156,7 +188,7 @@ export default function ResultsScreen({ route }) {
 
       <FlatList
         data={professionals}
-        key={columns}                   // força re-render quando mudar colunas
+        key={columns}
         numColumns={columns}
         renderItem={({ item }) => (
           <View style={{ flex: 1, padding: 6 }}>
@@ -168,6 +200,13 @@ export default function ResultsScreen({ route }) {
       />
 
       <Text style={styles.footer}>© DelBicos · 2025 · Todos os direitos reservados.</Text>
+
+      <ConfirmationModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handleFinalConfirmation}
+        info={modalInfo}
+      />
     </View>
   );
 }
@@ -235,5 +274,59 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginBottom: 8,
     fontSize: 12,
+  },
+});
+
+const modalStyles = StyleSheet.create({
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+  container: {
+    backgroundColor: UI.white,
+    padding: 20,
+    borderRadius: 12,
+    maxWidth: 400,
+    width: '90%',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: UI.blue,
+    marginBottom: 10,
+  },
+  message: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  buttonConfirm: {
+    backgroundColor: UI.blue,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  buttonCancel: {
+    backgroundColor: UI.bege,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: UI.white,
+    fontWeight: '700',
   },
 });
